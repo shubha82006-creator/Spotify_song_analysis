@@ -75,173 +75,257 @@ print("\nCleaning Completed Successfully!")
 # GRAPH 1 - Top 10 Artists
 # ==========================================
 
-top_artists = (
-    df["artists"]
-    .value_counts()
-    .head(10)
-    .sort_values()
-)
+plt.figure(figsize=(12,6), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
 
-plt.figure(figsize=(12, 6))
+top_artists = df["artists"].value_counts().head(10).sort_values()
 
 plt.barh(
-    range(len(top_artists)),
+    [a[:25] + "..." if len(a) > 25 else a for a in top_artists.index],
     top_artists.values,
-    color=SPOTIFY_GREEN
+    color="#1DB954",
+    edgecolor="white"
 )
 
-plt.yticks(range(len(top_artists)), [a[:25] + "..." if len(a) > 25 else a for a in top_artists.index])
+plt.title("Top 10 Artists", color="white", fontsize=16)
+plt.xlabel("Number of Songs", color="white")
 
-plt.title("Top 10 Artists")
-plt.xlabel("Number of Songs")
+plt.xticks(color="white")
+plt.yticks(color="white")
 
-plt.savefig("Images/top_artists.png", dpi=300, bbox_inches="tight")
+for spine in ax.spines.values():
+    spine.set_color("white")
+
+plt.grid(axis="x", color="white", alpha=0.2)
+
+plt.tight_layout()
+plt.savefig("Images/top_artists.png", dpi=300, facecolor="#191414")
 plt.show()
-plt.close()
+
 
 # ==========================================
 # GRAPH 2 - Top Genres
 # ==========================================
 
-plt.figure(figsize=(12,6), facecolor=SPOTIFY_BG)
+plt.figure(figsize=(12,6), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
 
-df["track_genre"].value_counts().head(10).sort_values().plot(
-    kind="barh",
-    color=SPOTIFY_BLACK
-)
-
-plt.title("Top 10 Genres")
-plt.xlabel("Number of Songs")
-plt.tight_layout()
-plt.savefig("Images/top_genres.png", dpi=300)
-plt.show()
-
-# ==========================================
-# GRAPH 3 - Top 10 Popular Songs
-# ==========================================
-
-top_popular = df.sort_values(
-    by="popularity",
-    ascending=False
-).head(10)
-
-plt.figure(figsize=(12,6), facecolor=SPOTIFY_BG)
+genres = df["track_genre"].value_counts().head(10).sort_values()
 
 plt.barh(
-    top_popular["track_name"],
-    top_popular["popularity"],
-    color=SPOTIFY_GREEN
+    genres.index,
+    genres.values,
+    color="#1DB954",
+    edgecolor="white"
 )
 
-plt.title("Top 10 Most Popular Songs")
-plt.xlabel("Popularity")
+plt.title("Top 10 Genres", color="white")
+plt.xlabel("Number of Songs", color="white")
+
+plt.xticks(color="white")
+plt.yticks(color="white")
+
+for spine in ax.spines.values():
+    spine.set_color("white")
+
+plt.grid(axis="x", color="white", alpha=0.2)
+
 plt.tight_layout()
-plt.savefig("Images/top_popular_songs.png", dpi=300)
+plt.savefig("Images/top_genres.png", dpi=300, facecolor="#191414")
 plt.show()
+
+
+# ==========================================
+# GRAPH 3 - Top Popular Songs
+# ==========================================
+
+plt.figure(figsize=(12,6), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
+
+top_popular = df.sort_values(by="popularity", ascending=False).head(10)
+
+plt.barh(
+    [x[:30] + "..." if len(x) > 30 else x for x in top_popular["track_name"]],
+    top_popular["popularity"],
+    color="#1DB954",
+    edgecolor="white"
+)
+
+plt.title("Top 10 Most Popular Songs", color="white")
+plt.xlabel("Popularity", color="white")
+
+plt.xticks(color="white")
+plt.yticks(color="white")
+
+for spine in ax.spines.values():
+    spine.set_color("white")
+
+plt.grid(axis="x", color="white", alpha=0.2)
+
+plt.tight_layout()
+plt.savefig("Images/top_popular_songs.png", dpi=300, facecolor="#191414")
+plt.show()
+
 
 # ==========================================
 # GRAPH 4 - Popularity Distribution
 # ==========================================
 
-plt.figure(figsize=(10,6), facecolor=SPOTIFY_BG)
+plt.figure(figsize=(10,6), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
 
 plt.hist(
     df["popularity"],
     bins=20,
-    color=SPOTIFY_GREEN,
-    edgecolor="black"
+    color="#1DB954",
+    edgecolor="white"
 )
 
-plt.title("Popularity Distribution")
-plt.xlabel("Popularity")
-plt.ylabel("Songs")
+plt.title("Popularity Distribution", color="white")
+plt.xlabel("Popularity", color="white")
+plt.ylabel("Number of Songs", color="white")
+
+plt.xticks(color="white")
+plt.yticks(color="white")
+
+for spine in ax.spines.values():
+    spine.set_color("white")
+
+plt.grid(color="white", alpha=0.2)
+
 plt.tight_layout()
-plt.savefig("Images/popularity_distribution.png", dpi=300)
+plt.savefig("Images/popularity_distribution.png", dpi=300, facecolor="#191414")
 plt.show()
+
 
 # ==========================================
 # GRAPH 5 - Danceability Distribution
 # ==========================================
 
-plt.figure(figsize=(10,6), facecolor=SPOTIFY_BG)
+plt.figure(figsize=(10,6), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
 
 plt.hist(
     df["danceability"],
     bins=20,
-    color="#1ED760",
-    edgecolor="black"
+    color="#1DB954",
+    edgecolor="white"
 )
 
-plt.title("Danceability Distribution")
-plt.xlabel("Danceability")
-plt.ylabel("Songs")
+plt.title("Danceability Distribution", color="white")
+plt.xlabel("Danceability", color="white")
+plt.ylabel("Number of Songs", color="white")
+
+plt.xticks(color="white")
+plt.yticks(color="white")
+
+for spine in ax.spines.values():
+    spine.set_color("white")
+
+plt.grid(color="white", alpha=0.2)
+
 plt.tight_layout()
-plt.savefig("Images/danceability_distribution.png", dpi=300)
+plt.savefig("Images/danceability_distribution.png", dpi=300, facecolor="#191414")
 plt.show()
+
 
 # ==========================================
 # GRAPH 6 - Energy Distribution
 # ==========================================
 
-plt.figure(figsize=(10,6), facecolor=SPOTIFY_BG)
+plt.figure(figsize=(10,6), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
 
 plt.hist(
     df["energy"],
     bins=20,
-    color=SPOTIFY_BLACK,
+    color="#1DB954",
     edgecolor="white"
 )
 
-plt.title("Energy Distribution")
-plt.xlabel("Energy")
-plt.ylabel("Songs")
+plt.title("Energy Distribution", color="white")
+plt.xlabel("Energy", color="white")
+plt.ylabel("Number of Songs", color="white")
+
+plt.xticks(color="white")
+plt.yticks(color="white")
+
+for spine in ax.spines.values():
+    spine.set_color("white")
+
+plt.grid(color="white", alpha=0.2)
+
 plt.tight_layout()
-plt.savefig("Images/energy_distribution.png", dpi=300)
+plt.savefig("Images/energy_distribution.png", dpi=300, facecolor="#191414")
 plt.show()
+
 
 # ==========================================
 # GRAPH 7 - Explicit Songs
 # ==========================================
 
-plt.figure(figsize=(6,6), facecolor=SPOTIFY_BG)
+plt.figure(figsize=(7,7), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
 
-df["explicit"].value_counts().plot(
-    kind="pie",
+plt.pie(
+    df["explicit"].value_counts(),
+    labels=["False", "True"],
     autopct="%1.1f%%",
-    colors=[SPOTIFY_GREEN, SPOTIFY_BLACK]
+    colors=["#1DB954", "#535353"],
+    textprops={"color":"white"}
 )
 
-plt.ylabel("")
-plt.title("Explicit vs Non Explicit Songs")
+plt.title("Explicit vs Non-Explicit Songs", color="white")
+
 plt.tight_layout()
-plt.savefig("Images/explicit_songs.png", dpi=300)
+plt.savefig("Images/explicit_songs.png", dpi=300, facecolor="#191414")
 plt.show()
+
 
 # ==========================================
 # GRAPH 8 - Danceability vs Energy
 # ==========================================
 
-plt.figure(figsize=(10,6), facecolor=SPOTIFY_BG)
+plt.figure(figsize=(10,6), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
 
 plt.scatter(
     df["danceability"],
     df["energy"],
-    color=SPOTIFY_GREEN,
-    alpha=0.5
+    color="#1DB954",
+    alpha=0.4
 )
 
-plt.title("Danceability vs Energy")
-plt.xlabel("Danceability")
-plt.ylabel("Energy")
+plt.title("Danceability vs Energy", color="white")
+plt.xlabel("Danceability", color="white")
+plt.ylabel("Energy", color="white")
+
+plt.xticks(color="white")
+plt.yticks(color="white")
+
+for spine in ax.spines.values():
+    spine.set_color("white")
+
+plt.grid(color="white", alpha=0.2)
+
 plt.tight_layout()
-plt.savefig("Images/danceability_vs_energy.png", dpi=300)
+plt.savefig("Images/danceability_vs_energy.png", dpi=300, facecolor="#191414")
 plt.show()
+
 
 # ==========================================
 # GRAPH 9 - Correlation Heatmap
 # ==========================================
 
-plt.figure(figsize=(10,8), facecolor=SPOTIFY_BG)
+plt.figure(figsize=(10,8), facecolor="#191414")
 
 sns.heatmap(
     df[
@@ -261,26 +345,43 @@ sns.heatmap(
     cmap="Greens"
 )
 
-plt.title("Correlation Heatmap")
+plt.title("Correlation Heatmap", color="white")
+
 plt.tight_layout()
-plt.savefig("Images/correlation_heatmap.png", dpi=300)
+plt.savefig("Images/correlation_heatmap.png", dpi=300, facecolor="#191414")
 plt.show()
+
 
 # ==========================================
 # GRAPH 10 - Top Albums
 # ==========================================
 
-plt.figure(figsize=(12,6), facecolor=SPOTIFY_BG)
+plt.figure(figsize=(12,6), facecolor="#191414")
+ax = plt.gca()
+ax.set_facecolor("#191414")
 
-df["album_name"].value_counts().head(10).sort_values().plot(
-    kind="barh",
-    color="#169C46"
+albums = df["album_name"].value_counts().head(10).sort_values()
+
+plt.barh(
+    albums.index,
+    albums.values,
+    color="#1DB954",
+    edgecolor="white"
 )
 
-plt.title("Top 10 Albums")
-plt.xlabel("Number of Songs")
+plt.title("Top 10 Albums", color="white")
+plt.xlabel("Number of Songs", color="white")
+
+plt.xticks(color="white")
+plt.yticks(color="white")
+
+for spine in ax.spines.values():
+    spine.set_color("white")
+
+plt.grid(axis="x", color="white", alpha=0.2)
+
 plt.tight_layout()
-plt.savefig("Images/top_albums.png", dpi=300)
+plt.savefig("Images/top_albums.png", dpi=300, facecolor="#191414")
 plt.show()
 
 print("\nAll graphs generated successfully!")
